@@ -19,6 +19,7 @@ namespace MiniGL
 		String Name;
 		String Source;
 		ShaderStage Stage;
+		uint32 ProgramID;
 	};
 
 	class Shader
@@ -46,5 +47,6 @@ namespace MiniGL
 		ShaderStage mStage;
 	};
 
-	static String ReadFile(const String& path);
+	String ReadFile(const String& path);
+	uint32 CreateProgram();
 }

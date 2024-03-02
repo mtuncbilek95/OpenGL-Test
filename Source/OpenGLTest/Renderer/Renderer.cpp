@@ -71,4 +71,18 @@ namespace MiniGL
 				glViewport(0, 0, width, height);
 			});
 	}
+
+	void Renderer::ClearColor()
+	{
+		glfwSwapBuffers(mHandle);
+		glfwPollEvents();
+
+		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(0.2f, 0.3f, 0.4f, 1.0f);
+	}
+
+	void Renderer::Draw(uint32 index)
+	{
+		glDrawElements(GL_TRIANGLES, index, GL_UNSIGNED_INT, 0);
+	}
 }

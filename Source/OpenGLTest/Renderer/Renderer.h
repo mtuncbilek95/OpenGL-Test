@@ -22,6 +22,9 @@ namespace MiniGL
 		void InitializeWindow();
 		void InitializeGL();
 
+		void ClearColor();
+		void Draw(uint32 index);
+
 		GLFWwindow* GetWindowHandle() const { return mHandle; }
 		bool ShouldClose() const { return glfwWindowShouldClose(mHandle); }
 

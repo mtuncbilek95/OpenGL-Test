@@ -24,10 +24,15 @@ namespace MiniGL
 		return buffer.str();
 	}
 
+	uint32 CreateProgram()
+	{
+		return glCreateProgram();
+	}
+
 	Shader::Shader(const ShaderDesc& desc) : mName(desc.Name), mShaderHandle(0), mShaderProgram(0),
 		mSource(desc.Source), mStage(desc.Stage)
 	{
-		mShaderProgram = glCreateProgram();
+		mShaderProgram = desc.ProgramID;
 
 		switch (desc.Stage)
 		{
@@ -120,21 +125,21 @@ namespace MiniGL
 
 	void Shader::SetVec2(const String& name, const Vector2f& value) const
 	{
-		glUniform2fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, &value[0]);
+		//glUniform2fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, &value[0]);
 	}
 
 	void Shader::SetVec3(const String& name, const Vector3f& value) const
 	{
-		glUniform3fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, &value[0]);
+		//glUniform3fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, &value[0]);
 	}
 
 	void Shader::SetVec4(const String& name, const Vector4f& value) const
 	{
-		glUniform4fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, &value[0]);
+		//glUniform4fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, &value[0]);
 	}
 
 	void Shader::SetMat4(const String& name, const Matrix4f& value) const
 	{
-		glUniformMatrix4fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, GL_FALSE, &value[0][0]);
+		//glUniformMatrix4fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, GL_FALSE, &value[0][0]);
 	}
 }

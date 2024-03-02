@@ -16,11 +16,7 @@ add_executable(OpenGLTest main.cpp ${SUBDIRECTORIES})
 # ------------------------------------------------------------
 
 # ------------------- INCLUDE DIRECTORIES --------------------
-target_include_directories(OpenGLTest PRIVATE "${CMAKE_SOURCE_DIR}/Source/MiniVk")
-# ------------------------------------------------------------
-
-# --------------------- LINK LIBRARIES -----------------------
-target_link_libraries(OpenGLTest PUBLIC glfw)
+target_include_directories(OpenGLTest PRIVATE "${CMAKE_SOURCE_DIR}/Source/OpenGLTest")
 # ------------------------------------------------------------
 
 # ----------------- STB IMAGE IMPLEMENTATION -----------------
@@ -41,6 +37,11 @@ if(NOT glad_POPULATED)
     set(GLAD_GENERATOR "c" CACHE STRING "Language to generate the binding for")
     add_subdirectory(${glad_SOURCE_DIR} ${glad_BINARY_DIR})
 endif()
+# ------------------------------------------------------------
+
+# --------------------- LINK LIBRARIES -----------------------
+target_link_libraries(OpenGLTest PUBLIC glfw)
+target_link_libraries(OpenGLTest PUBLIC glad)
 # ------------------------------------------------------------
 
 # ----------------- PREPROCESSOR DEFINITIONS -----------------

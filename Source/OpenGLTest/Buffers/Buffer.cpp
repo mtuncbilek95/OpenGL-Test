@@ -17,8 +17,14 @@ namespace MiniGL
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mElementObject);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, desc.Indices.size() * sizeof(uint32), desc.Indices.data(), GL_STATIC_DRAW);
 
-		glVertexAttribPointer(0, sizeof(Vertex::Position) / sizeof(float), GL_FLOAT, GL_FALSE, sizeof(Vertex::Position), (void*)0);
+		glVertexAttribPointer(0, sizeof(Vertex::Position) / sizeof(float), GL_FLOAT, GL_FALSE, sizeof(Vertex::Position) + sizeof(Vertex::Color) + sizeof(Vertex::TexCoord), (void*)0);
 		glEnableVertexAttribArray(0);
+
+		glVertexAttribPointer(1, sizeof(Vertex::Color) / sizeof(float), GL_FLOAT, GL_FALSE, sizeof(Vertex::Position) + sizeof(Vertex::Color) + sizeof(Vertex::TexCoord), (void*)offsetof(Vertex, Color));
+		glEnableVertexAttribArray(1);
+
+		glVertexAttribPointer(2, sizeof(Vertex::TexCoord) / sizeof(float), GL_FLOAT, GL_FALSE, sizeof(Vertex::Position) + sizeof(Vertex::Color) + sizeof(Vertex::TexCoord), (void*)offsetof(Vertex, TexCoord));
+		glEnableVertexAttribArray(2);
 
 		glBindVertexArray(0);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);

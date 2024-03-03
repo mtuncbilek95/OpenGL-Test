@@ -1,14 +1,15 @@
 #include <Renderer/Renderer.h>
 #include <Shader/Shader.h>
 #include <Buffers/Buffer.h>
+#include <Buffers/Texture.h>
 
-#include <glad/glad.h>
+#include <math.h>
 
 Array<MiniGL::Vertex> vertices = {
-	{ { -0.5f, -0.5f, 0.0f } },
-	{ { -0.5f,  0.5f, 0.0f } },
-	{ {  0.5f,  0.5f, 0.0f } },
-	{ {  0.5f, -0.5f, 0.0f } }
+	{ { -1.0f, -1.0f, 0.0f }, {1.0f, 0.0f, 0.0f, 1.0f}, { 0.0f, 0.0f } },
+	{ { -1.0f,  1.0f, 0.0f }, {0.0f, 1.0f, 0.0f, 1.0f}, { 0.0f, 1.0f } },
+	{ {  1.0f,  1.0f, 0.0f }, {0.0f, 0.0f, 1.0f, 1.0f}, { 1.0f, 1.0f } },
+	{ {  1.0f, -1.0f, 0.0f }, {0.0f, 1.0f, 1.0f, 1.0f}, { 1.0f, 0.0f } }
 };
 
 Array<uint32> indices = {
@@ -22,7 +23,7 @@ int main()
 {
 	MiniGL::RendererDesc desc;
 	desc.ProgramName = "OpenGL Test";
-	desc.WindowSize = { 1280, 720 };
+	desc.WindowSize = { 1920, 1080 };
 
 	MiniGL::Renderer renderer(desc);
 	renderer.InitializeWindow();
@@ -51,15 +52,19 @@ int main()
 
 	MiniGL::Shader fragmentShader(fShaderDesc);
 
+	MiniGL::Texture texture;
+
 	vertexShader.UseShader();
 	fragmentShader.UseShader();
 
 	while (!renderer.ShouldClose())
 	{
 		renderer.ClearColor();
-
+		fragmentShader.SetFloat("time", glfwGetTime());
+		fragmentShader.SetVec2("resolution", { 1920, 1080 });
 		for (auto obj : objects)
 		{
+			texture.Bind();
 			obj->Bind();
 			renderer.Draw(obj->GetIndexCount());
 		}

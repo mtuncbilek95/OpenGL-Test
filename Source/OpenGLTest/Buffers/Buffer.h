@@ -7,6 +7,8 @@ namespace MiniGL
 	struct Vertex
 	{
 		XMFLOAT3 Position;
+		XMFLOAT4 Color;
+		XMFLOAT2 TexCoord;
 	};
 
 	struct BufferDesc

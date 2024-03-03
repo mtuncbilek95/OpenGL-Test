@@ -125,7 +125,8 @@ namespace MiniGL
 
 	void Shader::SetVec2(const String& name, const Vector2f& value) const
 	{
-		//glUniform2fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, &value[0]);
+		float v[2] = { value.x, value.y };
+		glUniform2fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, v);
 	}
 
 	void Shader::SetVec3(const String& name, const Vector3f& value) const

@@ -21,7 +21,7 @@ typedef signed long long int64;
 FORCEINLINE static EnumType operator | (EnumType a, EnumType b) { return static_cast<EnumType>(static_cast<primitiveType>(a) | static_cast<primitiveType>(b)); } \
 FORCEINLINE static bool operator & (EnumType a, EnumType b) { return (static_cast<primitiveType>(a) & static_cast<primitiveType>(b)) != 0; } \
 
-namespace MiniVk
+namespace MiniGL
 {
 	enum class LogLevel
 	{
@@ -37,7 +37,7 @@ namespace MiniVk
 	void RUNTIME_API CoreLog(LogLevel type, const char* pTitle, const char* pMessage, ...);
 }
 
-#if defined(MINIVK_DEBUG)
+#if defined(MINIGL_DEBUG)
 
 #define HE_INFO MiniVk::LogLevel::Info
 #define HE_VERBOSE MiniVk::LogLevel::Verbose

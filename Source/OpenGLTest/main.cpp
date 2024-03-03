@@ -5,6 +5,8 @@
 
 #include <math.h>
 
+#include <filesystem>
+
 Array<MiniGL::Vertex> vertices = {
 	{ { -1.0f, -1.0f, 0.0f }, {1.0f, 0.0f, 0.0f, 1.0f}, { 0.0f, 0.0f } },
 	{ { -1.0f,  1.0f, 0.0f }, {0.0f, 1.0f, 0.0f, 1.0f}, { 0.0f, 1.0f } },
@@ -21,6 +23,8 @@ Array<MiniGL::Buffer*> objects;
 
 int main()
 {
+	std::filesystem::copy(R"(D:\Projects\OpenGL-Test\Source\Shaders)", "Shaders", std::filesystem::copy_options::recursive | std::filesystem::copy_options::overwrite_existing);
+
 	MiniGL::RendererDesc desc;
 	desc.ProgramName = "OpenGL Test";
 	desc.WindowSize = { 2560, 1440 };

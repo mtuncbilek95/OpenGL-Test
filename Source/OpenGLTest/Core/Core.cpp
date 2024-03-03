@@ -5,7 +5,7 @@
 #include <cassert>
 #include <stdlib.h>
 
-namespace MiniVk
+namespace MiniGL
 {
 	void RUNTIME_API DevLog(LogLevel type, const char* pMessage, ...)
 	{

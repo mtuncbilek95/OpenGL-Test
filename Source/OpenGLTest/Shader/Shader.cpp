@@ -141,6 +141,9 @@ namespace MiniGL
 
 	void Shader::SetMat4(const String& name, const Matrix4f& value) const
 	{
-		//glUniformMatrix4fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, GL_FALSE, &value[0][0]);
+		float matrix[16];
+		XMStoreFloat4x4(reinterpret_cast<XMFLOAT4X4*>(matrix), XMMatrixTranspose(value));
+
+		glUniformMatrix4fv(glGetUniformLocation(mShaderProgram, name.c_str()), 1, GL_FALSE, matrix);
 	}
 }

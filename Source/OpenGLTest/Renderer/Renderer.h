@@ -11,6 +11,7 @@ namespace MiniGL
 	{
 		String ProgramName;
 		Vector2u WindowSize;
+		bool Windowed;
 	};
 
 	class Renderer
@@ -33,5 +34,6 @@ namespace MiniGL
 		Vector2u mWindowSize;
 		String mProgramName;
 		Vector2i mWindowPosition;
+		bool mWindowed;
 	};
 }

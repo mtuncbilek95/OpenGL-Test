@@ -12,7 +12,7 @@ namespace MiniGL
 	}
 
 	Renderer::Renderer(const RendererDesc& desc) : mWindowSize(desc.WindowSize), mWindowPosition({ 0, 0 }),
-		mProgramName(desc.ProgramName), mHandle(nullptr)
+		mProgramName(desc.ProgramName), mHandle(nullptr), mWindowed(desc.Windowed)
 	{
 	}
 
@@ -38,6 +38,11 @@ namespace MiniGL
 #endif // __APPLE__
 
 		glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
+
+		if (mWindowed)
+			glfwWindowHint(GLFW_DECORATED, GL_TRUE);
+		else
+			glfwWindowHint(GLFW_DECORATED, GL_FALSE);
 
 		mHandle = glfwCreateWindow(mWindowSize.x, mWindowSize.y, mProgramName.c_str(), nullptr, nullptr);
 

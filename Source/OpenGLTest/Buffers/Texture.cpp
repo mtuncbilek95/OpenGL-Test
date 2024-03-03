@@ -4,7 +4,7 @@
 
 namespace MiniGL
 {
-	Texture::Texture()
+	Texture::Texture(const TextureDesc& desc)
 	{
 		glGenTextures(1, &mTextureObject);
 		glBindTexture(GL_TEXTURE_2D, mTextureObject);
@@ -14,7 +14,7 @@ namespace MiniGL
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, 1920, 1080, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, desc.Size.x, desc.Size.y, 0, GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 		glGenerateMipmap(GL_TEXTURE_2D);
 	}
 

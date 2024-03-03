@@ -23,7 +23,8 @@ int main()
 {
 	MiniGL::RendererDesc desc;
 	desc.ProgramName = "OpenGL Test";
-	desc.WindowSize = { 1920, 1080 };
+	desc.WindowSize = { 2560, 1440 };
+	desc.Windowed = false;
 
 	MiniGL::Renderer renderer(desc);
 	renderer.InitializeWindow();
@@ -38,7 +39,7 @@ int main()
 
 	MiniGL::ShaderDesc vShaderDesc;
 	vShaderDesc.Stage = MiniGL::ShaderStage::Vertex;
-	vShaderDesc.Source = MiniGL::ReadFile(R"(D:\Projects\OpenGL-Test\Source\Shaders\shader.vert)");
+	vShaderDesc.Source = MiniGL::ReadFile("Shaders/shader.vert");
 	vShaderDesc.Name = "Vertex Shader";
 	vShaderDesc.ProgramID = progID;
 
@@ -46,22 +47,28 @@ int main()
 
 	MiniGL::ShaderDesc fShaderDesc;
 	fShaderDesc.Stage = MiniGL::ShaderStage::Fragment;
-	fShaderDesc.Source = MiniGL::ReadFile(R"(D:\Projects\OpenGL-Test\Source\Shaders\shader.frag)");
+	fShaderDesc.Source = MiniGL::ReadFile("Shaders/shader.frag");
 	fShaderDesc.Name = "Fragment Shader";
 	fShaderDesc.ProgramID = progID;
 
 	MiniGL::Shader fragmentShader(fShaderDesc);
 
-	MiniGL::Texture texture;
+	MiniGL::TextureDesc textureDesc;
+	textureDesc.Size = desc.WindowSize;
+	MiniGL::Texture texture(textureDesc);
 
 	vertexShader.UseShader();
 	fragmentShader.UseShader();
+
+	Matrix4f model = DirectX::XMMatrixTranslationFromVector({ 0.0f, 0.0f, 0.0f });
+	Matrix4f view = DirectX::XMMatrixLookAtLH({ 0.0f, 0.0f, -2.0f }, { 0.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f });
+	Matrix4f projection = DirectX::XMMatrixPerspectiveFovLH(DirectX::XMConvertToRadians(45.0f), static_cast<float>(desc.WindowSize.y) / static_cast<float>(desc.WindowSize.x), 0.1f, 100.0f);
 
 	while (!renderer.ShouldClose())
 	{
 		renderer.ClearColor();
 		fragmentShader.SetFloat("time", glfwGetTime());
-		fragmentShader.SetVec2("resolution", { 1920, 1080 });
+		vertexShader.SetMat4("mvp", model * view * projection);
 		for (auto obj : objects)
 		{
 			texture.Bind();
